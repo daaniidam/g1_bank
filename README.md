@@ -76,9 +76,17 @@ g1_bank/
 Módulo instalado y funcionando en una instancia real de **Odoo 16** (con datos
 de ejemplo).
 
+**Aplicación instalada** — el módulo con su icono en Odoo:
+
+![App](docs/img/module.jpg)
+
 **Cuentas** — tipos estándar/crédito, balance inicial, línea de crédito y balance actual:
 
 ![Accounts](docs/img/accounts.jpg)
+
+**Ficha de cuenta** — vista formulario con la pestaña de sus movimientos:
+
+![Account form](docs/img/account-form.jpg)
 
 **Movimientos** — depósitos y pagos con el balance recalculado tras cada movimiento:
 
