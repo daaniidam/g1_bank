@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <menuitem id="menu_g1_bank_root" name="G1 Bank" sequence="10"/>
+
+        <record id="action_g1_account" model="ir.actions.act_window">
+            <field name="name">Accounts</field>
+            <field name="res_model">g1.account</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="action_g1_movement" model="ir.actions.act_window">
+            <field name="name">Movements</field>
+            <field name="res_model">g1.movement</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <record id="action_g1_customer" model="ir.actions.act_window">
+            <field name="name">Customers</field>
+            <field name="res_model">res.users</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_g1_accounts" 
+                  name="Accounts" 
+                  parent="menu_g1_bank_root" 
+                  action="action_g1_account" 
+                  sequence="20"/>
+
+        <menuitem id="menu_g1_movements" 
+                  name="Movements" 
+                  parent="menu_g1_bank_root" 
+                  action="action_g1_movement" 
+                  sequence="30"/>
+        
+           <menuitem id="menu_g1_customers"
+                  name="Customers"
+                  parent="menu_g1_bank_root"
+                  action="action_g1_customer"
+                  sequence="15"/>
+
+        <record id="g1_movement_tree" model="ir.ui.view">
+            <field name="name">g1.movement.tree</field>
+            <field name="model">g1.movement</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="amount"/>
+                    <field name="balance"/>
+                    <field name="timestamp"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="g1_account_tree" model="ir.ui.view">
+            <field name="name">g1.account.tree</field>
+            <field name="model">g1.account</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="description"/>
+                    <field name="account_type"/>
+                    <field name="begin_balance"/>
+                    <field name="credit_line"/>
+                    <field name="opening_date"/>
+                    <field name="balance"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record id="g1_customer_tree" model="ir.ui.view">
+            <field name="name">g1.customer.tree</field>
+            <field name="model">res.users</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="login"/>
+                    <field name="email"/>
+                </tree>
+            </field>
+        </record>
+
+    </data>
+</odoo>
