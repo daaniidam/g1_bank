@@ -17,7 +17,11 @@
     "data": [
         "security/ir.model.access.csv",
         "views/views.xml",
+        "views/g1_bank_forms.xml",
         "views/g1_bank_customer.xml",
+    ],
+    "demo": [
+        "data/demo.xml",
     ],
     "application": True,
     "installable": True,

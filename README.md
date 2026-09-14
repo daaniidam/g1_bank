@@ -34,8 +34,13 @@ g1_bank/
 │   └── movement.py            # Modelo g1.movement (movimientos)
 ├── security/
 │   └── ir.model.access.csv    # Permisos de acceso
+├── data/
+│   └── demo.xml               # Datos de ejemplo (cuentas y movimientos)
+├── static/description/
+│   └── icon.png               # Icono de la aplicación
 └── views/
     ├── views.xml              # Menús, acciones y vistas tree
+    ├── g1_bank_forms.xml      # Vistas form de cuentas y movimientos
     └── g1_bank_customer.xml   # Vistas tree/form de clientes (res.users)
 ```
 
@@ -56,6 +61,10 @@ g1_bank/
    lista y busca **"My Bank (G1 Bank)"** para instalarlo.
 5. Aparecerá el menú **G1 Bank** con las secciones *Accounts*, *Movements* y
    *Customers*.
+
+> 💡 Si instalas el módulo en una base de datos **con datos de demostración**, se
+> cargan automáticamente cuentas y movimientos de ejemplo (`data/demo.xml`) para
+> ver el módulo funcionando al instante.
 
 > **Nota:** el módulo se ha **instalado y probado en una instancia real de
 > Odoo 16** (contenedor Docker `odoo:16` + PostgreSQL), instalándose sin errores

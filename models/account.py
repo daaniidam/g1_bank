@@ -24,12 +24,13 @@ class g1_Account(models.Model):
     # Relacion, cuenta tiene muchos movimientos
     movement_ids = fields.One2many('g1.movement', 'account_id', string="Movimientos")
 
-    @api.model
-    def create(self, vals):
+    @api.model_create_multi
+    def create(self, vals_list):
         # Al crear la cuenta, inicializamos el balance con el begin_balance
-        if 'begin_balance' in vals:
-            vals['balance'] = vals['begin_balance']
-        return super(g1_Account, self).create(vals)
+        for vals in vals_list:
+            if 'begin_balance' in vals:
+                vals['balance'] = vals['begin_balance']
+        return super(g1_Account, self).create(vals_list)
 
     @api.constrains('begin_balance')
     def _check_amount(self):

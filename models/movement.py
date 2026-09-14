@@ -33,32 +33,33 @@ class Movement(models.Model):
             if movement.amount <= 0:
                 raise ValidationError("The amount must be greater than zero")
 
-    @api.model
-    def create(self, vals):
-        # Usar la cuenta relacionada
-        account = self.env['g1.account'].browse(vals.get('account_id'))
-        amount = vals.get('amount')
-        m_type = vals.get('description')
-        
-        # Calculo
-        current_balance = account.balance
-        if m_type == 'deposit':
-            new_balance = current_balance + amount
-        else: # Si no es deposit es payment
-            # Validar si tiene saldo + línea de crédito suficiente
-            limit = account.credit_line if account.account_type == 'credit' else 0.0
-            if (current_balance + limit) < amount:
-                raise ValidationError("Insufficient balance (including line of credit if applicable).")
-            new_balance = current_balance - amount
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+            # Usar la cuenta relacionada
+            account = self.env['g1.account'].browse(vals.get('account_id'))
+            amount = vals.get('amount')
+            m_type = vals.get('description')
 
-        # Guardamos el balance en movimiento
-        vals['balance'] = new_balance
-        
-        # Actualizamos balance en la cuenta
-        # Usamos sudo para asegurar que el sistema puede escribir el balance aunque sea readonly
-        account.sudo().write({'balance': new_balance})
-        
-        return super(Movement, self).create(vals)
+            # Calculo
+            current_balance = account.balance
+            if m_type == 'deposit':
+                new_balance = current_balance + amount
+            else:  # Si no es deposit es payment
+                # Validar si tiene saldo + línea de crédito suficiente
+                limit = account.credit_line if account.account_type == 'credit' else 0.0
+                if (current_balance + limit) < amount:
+                    raise ValidationError("Insufficient balance (including line of credit if applicable).")
+                new_balance = current_balance - amount
+
+            # Guardamos el balance en el movimiento
+            vals['balance'] = new_balance
+
+            # Actualizamos balance en la cuenta
+            # Usamos sudo para poder escribir el balance aunque sea readonly
+            account.sudo().write({'balance': new_balance})
+
+        return super(Movement, self).create(vals_list)
 
     def write(self, vals):
         # Bloqueamos cualquier edición de movimientos ya creados
