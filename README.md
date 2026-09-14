@@ -57,10 +57,27 @@ g1_bank/
 5. Aparecerá el menú **G1 Bank** con las secciones *Accounts*, *Movements* y
    *Customers*.
 
-> **Nota:** el módulo se ha revisado y corregido a nivel de código y de
-> configuración (manifest, imports y vistas), pero **no se ha ejecutado sobre
-> una instancia real de Odoo 16** en esta puesta a punto. Antes de desplegarlo
-> en producción conviene instalarlo en un entorno de pruebas.
+> **Nota:** el módulo se ha **instalado y probado en una instancia real de
+> Odoo 16** (contenedor Docker `odoo:16` + PostgreSQL), instalándose sin errores
+> y con la lógica de negocio verificada (recálculo de balance en cada
+> movimiento). Ver [Capturas](#capturas).
+
+## Capturas
+
+Módulo instalado y funcionando en una instancia real de **Odoo 16** (con datos
+de ejemplo).
+
+**Cuentas** — tipos estándar/crédito, balance inicial, línea de crédito y balance actual:
+
+![Accounts](docs/img/accounts.jpg)
+
+**Movimientos** — depósitos y pagos con el balance recalculado tras cada movimiento:
+
+![Movements](docs/img/movements.jpg)
+
+**Clientes** — basados en `res.users`:
+
+![Customers](docs/img/customers.jpg)
 
 ## Créditos
 
